@@ -14,15 +14,15 @@ fun processDocument(f: File, part1: Boolean): String {
     return processDrawing(getDrawing(list), list, part1)
 }
 
-fun getDrawing(list: List<String>): List<MutableList<Char>> {
+fun getDrawing(sList: List<String>): List<MutableList<Char>> {
     val drawing: List<MutableList<Char>> =
-        List(list.first { it.elementAt(1) == '1' }.reversed().trim().first().digitToInt()) { mutableListOf() }
+        List(sList.first { it.elementAt(1) == '1' }.reversed().trim().first().digitToInt()) { mutableListOf() }
 
-    list.forEach {
+    sList.forEach {
         if (it.elementAt(1) == '1') {
             return drawing
         }
-        for (i in 0..list[0].length / 4) {
+        for (i in 0..it.length / 4) {
             if (it.elementAt(i * 4 + 1) != ' ') {
                 drawing[i].add(it.elementAt(i * 4 + 1))
             }
@@ -31,8 +31,8 @@ fun getDrawing(list: List<String>): List<MutableList<Char>> {
     return drawing
 }
 
-fun processDrawing(drawing: List<MutableList<Char>>, list: List<String>, part1: Boolean): String {
-    list.filter { it.contains("move") }.forEach {
+fun processDrawing(drawing: List<MutableList<Char>>, sList: List<String>, part1: Boolean): String {
+    sList.filter { it.contains("move") }.forEach {
         val move = it.substringAfter("ve ").substringBefore(" fr").toInt() - 1
         val from = it.substringAfter("om ").substringBefore(" to").toInt() - 1
         val to = it.substringAfter("to ").toInt() - 1
